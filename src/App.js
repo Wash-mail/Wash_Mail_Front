@@ -6,6 +6,7 @@ import Initial from './Initial';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 class App extends Component {
+
 	render() {
 		return (
 			<div className="App">
