@@ -1,38 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Clean from './Clean';
+
+//import Clean from './Clean';
 import Final from './Final';
+import Initial from './Initial';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
-
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={Clean} />
-              <Route path="/final" component={Final} />/>
-          </Switch>
-          </BrowserRouter>
-        </header>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="App">
+				<header className="App-header">
+					<BrowserRouter>
+						<Switch>
+							<Route exact path="/" component={Initial} />
+							<Route path="/final" component={Final} />
+							/>
+						</Switch>
+					</BrowserRouter>
+				</header>
+			</div>
+		);
+	}
 }
 
 export default App;
