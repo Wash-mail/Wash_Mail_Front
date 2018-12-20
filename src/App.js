@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Clean from './Clean';
+
+//import Clean from './Clean';
 import Final from './Final';
+import Initial from './Initial';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
-
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={Clean} />
-              <Route path="/final" component={Final} />/>
-          </Switch>
-          </BrowserRouter>
-      </div>
-    );
-  }
+
+	render() {
+		return (
+			<div className="App">
+				<header className="App-header">
+					<BrowserRouter>
+						<Switch>
+							<Route exact path="/" component={Initial} />
+							<Route path="/final" component={Final} />
+							/>
+						</Switch>
+					</BrowserRouter>
+				</header>
+			</div>
+		);
+	}
 }
 
 export default App;

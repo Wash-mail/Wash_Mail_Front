@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Nav from './Component/Nav';
-import Forms from './Component/Forms';
+import Bread from './Component/Bread';
 import Footer from './Component/Footer';
-class Header extends Component {
+class Initial extends Component {
 	constructor(props) {
 		super(props);
 
@@ -13,11 +13,11 @@ class Header extends Component {
 		return (
 			<div>
 				<Nav />
-				<Forms />
+				<Bread />
 				<Footer />
 			</div>
 		);
 	}
 }
 
-export default Header;
+export default Initial;
