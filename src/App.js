@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 //import Clean from './Clean';
 import Final from './Final';
-import Initial from './Initial';
+import Clean from './Clean';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 class App extends Component {
@@ -13,9 +13,9 @@ class App extends Component {
 				<header className="App-header">
 					<BrowserRouter>
 						<Switch>
-							<Route exact path="/" component={Initial} />
+							<Route exact path="/" component={Clean} />
 							<Route path="/final" component={Final} />
-							/>
+							
 						</Switch>
 					</BrowserRouter>
 				</header>
