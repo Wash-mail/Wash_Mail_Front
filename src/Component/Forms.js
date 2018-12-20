@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Container, Button, Form, FormGroup, Label, input } from 'reactstrap';
 import '../css/Form.css';
 export default class Forms extends Component {
 	render() {
@@ -11,7 +11,7 @@ export default class Forms extends Component {
 					<FormGroup>
 						<FormGroup check>
 							<Label check>
-								<Input type="radio" name="radio1" />
+								<input type="radio" name="radio1" />
 								Tout Selectionner
 							</Label>
 						</FormGroup>
@@ -21,7 +21,7 @@ export default class Forms extends Component {
 							<Label for="exampleEmail">Historique</Label>
 							<FormGroup check className="formgroup">
 								<Label check>
-									<Input type="radio" name="radio1" />
+									<input type="radio" name="radio1" />
 									Historique
 								</Label>
 							</FormGroup>
@@ -30,7 +30,7 @@ export default class Forms extends Component {
 							<Label for="exampleEmail">Cookies</Label>
 							<FormGroup check>
 								<Label check>
-									<Input type="radio" name="radio1" />
+									<input type="radio" name="radio1" />
 									Cookies
 								</Label>
 							</FormGroup>
@@ -39,7 +39,7 @@ export default class Forms extends Component {
 							<Label for="exampleEmail">Email</Label>
 							<FormGroup check>
 								<Label check>
-									<Input type="radio" name="radio1" />
+									<input type="radio" name="radio1" />
 									Email
 								</Label>
 							</FormGroup>
@@ -48,7 +48,7 @@ export default class Forms extends Component {
 							<Label for="exampleEmail">telechargement</Label>
 							<FormGroup check>
 								<Label check>
-									<Input type="radio" name="radio1" />
+									<input type="radio" name="radio1" />
 									Telechargement
 								</Label>
 							</FormGroup>

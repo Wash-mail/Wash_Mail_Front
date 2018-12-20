@@ -1,146 +1,231 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, CustomInput } from 'reactstrap';
+import { Form, FormGroup, Label, Button } from 'reactstrap';
 import Nav from './Component/Nav';
-import Forms from './Component/Forms';
-import Footer from './Component/Footer';
+/* eslint-disable */
 const axios = require('axios');
-
 
 class Header extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			historique: [""],
-			cookies: [""],
-			mail: [""],
-			telechargement: [""],
-			extensions: [""]
+			historique: [''],
+			cookies: [''],
+			mail: [''],
+			telechargement: [''],
+			extensions: [''],
+			mailselect: [],
+			histSelect: [],
+			cacheSelect: [],
+			downlSelect: [],
+			extSelect: []
 		};
 	}
 
-
 	componentDidMount() {
-		axios.get('http://localhost:5000/api/historique/get')
+		axios
+			.get('http://localhost:8080/api/historique/get')
 			.then(response => {
-				const historique = response.data
+				const historique = response.data;
 				this.setState({
 					historique: historique
-				})
-				console.log(this.state.historique.url)
+				});
 			})
 			.catch(error => {
-				throw (error);
+				throw error;
 			});
 
-		axios.get('http://localhost:5000/api/cache/get')
+		axios
+			.get('http://localhost:8080/api/cache/get')
 			.then(response => {
-				const cookies = response.data
+				const cookies = response.data;
 				this.setState({
 					cookies: cookies
-				})
+				});
 			})
 			.catch(error => {
-				throw (error);
+				throw error;
 			});
 
-		axios.get('http://localhost:5000/api/mail/getall')
+		axios
+			.get('http://localhost:8080/api/mail/getall')
 			.then(response => {
-				const mail = response.data
+				const mail = response.data;
 				this.setState({
 					mail: mail
-				})
+				});
 			})
 			.catch(error => {
-				throw (error);
+				throw error;
 			});
 
-
-		axios.get('http://localhost:5000/api/mail/getall')
+		axios
+			.get('http://localhost:8080/api/telechargement/get')
 			.then(response => {
-				const mail = response.data
-				this.setState({
-					mail: mail
-				})
-			})
-			.catch(error => {
-				throw (error);
-			});
-
-
-		axios.get('http://localhost:5000/api/telechargement/get')
-			.then(response => {
-				const telechargement = response.data
+				const telechargement = response.data;
 				this.setState({
 					telechargement: telechargement
-				})
+				});
 			})
 			.catch(error => {
-				throw (error);
+				throw error;
 			});
 
-
-		axios.get('http://localhost:5000/api/extensions/getall')
+		axios
+			.get('http://localhost:8080/api/extension/getall')
 			.then(response => {
-				const extensions = response.data
+				const extensions = response.data;
 				this.setState({
 					extensions: extensions
-				})
+				});
 			})
 			.catch(error => {
-				throw (error);
+				throw error;
 			});
 	}
 
-/*
 	getHistorique() {
-		return this.state.historique.map((historique) => {
+		return this.state.historique.map(historique => {
 			return (
-				<Label for="exampleCheckbox">Historique</Label>
-				<div>
-					<CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
-				</div>
-
-            );
-
+				<Form>
+					<FormGroup>
+						<Label check>
+							<input
+								type="checkbox"
+								id="exampleCustomCheckbox"
+								defaultChecked={false}
+								onClick={this.onSelectMail}
+								name={historique.id}
+							/>{' '}
+							{historique.url}
+						</Label>
+					</FormGroup>
+				</Form>
+			);
 		});
-
 	}
-*/
+	getCookies() {
+		return this.state.cookies.map(cookies => {
+			return (
+				<Form>
+					<FormGroup>
+						<Label check>
+							<input
+								type="checkbox"
+								id="exampleCustomCheckbox"
+								defaultChecked={false}
+								onClick={this.onSelectCache}
+								name={cookies.id}
+							/>{' '}
+							{cookies.cookies}
+						</Label>
+					</FormGroup>
+				</Form>
+			);
+		});
+	}
+	getMail() {
+		return this.state.mail.map(mail => {
+			return (
+				<Form>
+					<FormGroup>
+						<Label check>
+							<input
+								type="checkbox"
+								id="exampleCustomCheckbox"
+								defaultChecked={false}
+								onClick={this.onSelectMail}
+								name={mail.id}
+							/>{' '}
+							{mail.expediteur}
+						</Label>
+					</FormGroup>
+				</Form>
+			);
+		});
+	}
+
+	getExtensions() {
+		return this.state.extensions.map(extensions => {
+			return (
+				<Form>
+					<FormGroup>
+						<Label check>
+							<input
+								type="checkbox"
+								id="exampleCustomCheckbox"
+								defaultChecked={false}
+								onClick={this.onExtlSelect}
+								name={extensions.id}
+							/>{' '}
+							{extensions.nom}
+						</Label>
+					</FormGroup>
+				</Form>
+			);
+		});
+	}
+
+	getTelechargement() {
+		return this.state.telechargement.map(telechargement => {
+			return (
+				<Form>
+					<FormGroup>
+						<Label check>
+							<input
+								type="checkbox"
+								id="exampleCustomCheckbox"
+								defaultChecked={false}
+								onClick={this.onDownlSelect}
+								name={telechargement.id}
+							/>{' '}
+							{telechargement.url}
+						</Label>
+					</FormGroup>
+				</Form>
+			);
+		});
+	}
+
+	onSelectCache = e => {
+		this.setState({ cacheSelect: this.state.cacheSelect.concat(e.target.name) });
+	};
+	onSelectHist = e => {
+		this.setState({ histSelect: this.state.histSelect.concat(e.target.name) });
+	};
+	onSelectMail = e => {
+		this.setState({ mailselect: this.state.mailselect.concat(e.target.name) });
+	};
+	onDownlSelect = e => {
+		this.setState({ downlSelect: this.state.downlSelect.concat(e.target.name) });
+	};
+	onExtlSelect = e => {
+		this.setState({ extSelect: this.state.extSelect.concat(e.target.name) });
+	};
+
 	render() {
+		/* 		const { histSelect } = this.state;
+		const { cacheSelect } = this.state;
+		const { mailselect } = this.state;
+		const { downlSelect } = this.state;
+		const { extSelect } = this.state;
+
+		console.log(histSelect, mailselect, cacheSelect, downlSelect, extSelect); */
 		return (
 			<div>
 				<Nav />
-				<FormGroup>
-					<Label for="exampleCheckbox">Emails</Label>
-					<div>
-						<CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
-						<CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
-						<CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
-					</div>
+				<h1>Historique</h1>
+				{this.getHistorique()}
+				<h1>Cookies</h1>
+				{this.getCookies()}
+				<h1>Email</h1>
+				{this.getMail()}
+				<h1>Telechargement</h1>
+				{this.getTelechargement()}
+				<h1>Extensions</h1>
+				{this.getExtensions()}
 
-
-				</FormGroup>
-
-				<Label for="exampleCheckbox">Cookies</Label>
-				<div>
-					<CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
-					<CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
-					<CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
-				</div>
-
-				<Label for="exampleCheckbox">Téléchargements</Label>
-				<div>
-					<CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
-					<CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
-					<CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
-				</div>
-				<Label for="exampleCheckbox">Extensions</Label>
-				<div>
-					<CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
-					<CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
-					<CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
-				</div>
+				<Button>Validé</Button>
 			</div>
 		);
 	}
