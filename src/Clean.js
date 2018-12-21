@@ -18,10 +18,11 @@ class Header extends Component {
 			histSelect: [],
 			cacheSelect: [],
 			downlSelect: [],
-			extSelect: []
+			extSelect: [],
+			score: 0
 		};
 	}
-
+	//hyclmsbp83^^
 	componentDidMount() {
 		axios
 			.get('http://localhost:8080/api/historique/get')
@@ -138,6 +139,7 @@ class Header extends Component {
 								name={mail.id}
 							/>{' '}
 							{mail.expediteur}
+							{'(' + mail.nombre + ')'}
 						</Label>
 					</FormGroup>
 				</Form>
@@ -159,6 +161,7 @@ class Header extends Component {
 								name={extensions.id}
 							/>{' '}
 							{extensions.nom}
+							{'(' + extensions.jour + ')'}
 						</Label>
 					</FormGroup>
 				</Form>
@@ -188,7 +191,9 @@ class Header extends Component {
 	}
 
 	onSelectCache = e => {
-		this.setState({ cacheSelect: this.state.cacheSelect.concat(e.target.name) });
+		this.setState({
+			cacheSelect: this.state.cacheSelect.concat(e.target.name)
+		});
 	};
 	onSelectHist = e => {
 		this.setState({ histSelect: this.state.histSelect.concat(e.target.name) });
@@ -196,36 +201,75 @@ class Header extends Component {
 	onSelectMail = e => {
 		this.setState({ mailselect: this.state.mailselect.concat(e.target.name) });
 	};
+
 	onDownlSelect = e => {
-		this.setState({ downlSelect: this.state.downlSelect.concat(e.target.name) });
+		this.setState({
+			downlSelect: this.state.downlSelect.concat(e.target.name)
+		});
 	};
+
 	onExtlSelect = e => {
 		this.setState({ extSelect: this.state.extSelect.concat(e.target.name) });
 	};
 
-	render() {
-		/* 		const { histSelect } = this.state;
+	toDeletehistorique = () => {
+		axios.delete('http://localhost:8080/api/historique/delete');
+	};
+
+	toDeletecookies = () => {
+		axios.delete('http://localhost:8080/api/cache/delete');
+	};
+
+	toDeletemails = () => {
+		this.state.mailselect.map(mail => {
+			axios.delete(`http://localhost:8080/api/mail/delete/${mail} `);
+		});
+	};
+
+	toDeletetelechargement = () => {
+		axios.delete('http://localhost:8080/api/telechargement/delete');
+	};
+
+	toDeleteextensions = () => {
+		this.state.extSelect.map(extension => {
+			axios.delete(`http://localhost:8080/api/extension/delete/${extension} `);
+		});
+	};
+
+	Delete = () => {
+		this.toDeletecookies(),
+			this.toDeleteextensions(),
+			this.toDeletehistorique(),
+			this.toDeletemails(),
+			this.toDeletetelechargement();
+	};
+	/* 		const { histSelect } = this.state;
 		const { cacheSelect } = this.state;
 		const { mailselect } = this.state;
 		const { downlSelect } = this.state;
 		const { extSelect } = this.state;
 
 		console.log(histSelect, mailselect, cacheSelect, downlSelect, extSelect); */
+	render() {
+		console.log(this.state.score);
 		return (
 			<div>
-				<Nav />
-				<h1>Historique</h1>
-				{this.getHistorique()}
-				<h1>Cookies</h1>
-				{this.getCookies()}
-				<h1>Email</h1>
-				{this.getMail()}
-				<h1>Telechargement</h1>
-				{this.getTelechargement()}
-				<h1>Extensions</h1>
-				{this.getExtensions()}
+				<h2>Aujourd'hui vous allez supprimer {this.state.score} kg de CO2 !</h2>
+				<div>
+					<Nav />
+					<h1>Historique</h1>
+					{this.getHistorique()}
+					<h1>Cookies</h1>
+					{this.getCookies()}
+					<h1>Email</h1>
+					{this.getMail()}
+					<h1>Telechargement</h1>
+					{this.getTelechargement()}
+					<h1>Extensions</h1>
+					{this.getExtensions()}
+				</div>
 
-				<Button>Validé</Button>
+				<Button onClick={this.Delete()}>Valider</Button>
 			</div>
 		);
 	}
