@@ -85,6 +85,13 @@ class Header extends Component {
 			});
 	}
 
+	addScore = () => {
+		let random = Math.floor(Math.random() * 10);
+		this.setState({ score: this.state.score + random });
+
+		axios.put(`http://localhost:8080/api/score/put${this.state.score}`);
+	};
+
 	getHistorique() {
 		return this.state.historique.map(historique => {
 			return (
